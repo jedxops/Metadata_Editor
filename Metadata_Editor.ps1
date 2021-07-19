@@ -44,18 +44,21 @@
 # the metadata accordingly. Rinse and repeat. Output information about the
 # copied data as well as a data copy count
 
-# make counter
-
 # Declare paths
-$files_to_copy_metadata_to    = Get-ChildItem c:\Users\zombi\Desktop\originals
-$files_to_copy_metadata_from  = Get-ChildItem c:\Users\zombi\Desktop\copies
-$copy_to_path = '.\originals\'
-$copy_from_path = '.\copies\'
+$files_to_copy_metadata_to    = Get-ChildItem 'd:\photos\vacations\maui 2021\Metadata Editor Edited Folder\Maui 2021 Robocopied'
+$files_to_copy_metadata_from  = Get-ChildItem 'd:\photos\vacations\maui 2021\Metadata Editor Edited Folder\Newly Imported With Correct Metadata'
+$copy_to_path = '.\Maui 2021 Robocopied\'
+$copy_from_path = '.\Newly Imported With Correct Metadata\'
+
+# Other variables
+$metadata_copied = 0
+$destination_files_examined = 0
 
 ForEach($file1 in $files_to_copy_metadata_to) {
-  Write-Host "`nExamining (in copy-to folder): " $file1.name
+  # Write-Host "`nExamining (in copy-to folder): " $file1.name
+  $destination_files_examined = $destination_files_examined + 1
   ForEach($file2 in $files_to_copy_metadata_from) {
-    Write-Host "`tExamining (in copy-from folder): " $file2.name
+    # Write-Host "`tExamining (in copy-from folder): " $file2.name
 	
     # Compare the text of the two files
 	$fc_rv = fc.exe $copy_to_path$file1 $copy_from_path$file2
@@ -71,13 +74,20 @@ ForEach($file1 in $files_to_copy_metadata_to) {
 
       # If and only if this second comparison returns true, THEN we copy the metadata
       if("$contains_string" -eq "True") {
-        Write-Host "`n`tMATCH. Copying " $file2.name "\'s metadata into " $file1.name "\'s metadata.`n"
-        $file1.CreationTime = $file2.CreationTime
+        #Write-Host "`n`tMATCH. Copying " $file2.name "\'s metadata into " $file1.name "\'s metadata.`n"
+        Write-Host "MATCH. Copying " $file2.name"'s metadata into " $file1.name"'s metadata.`n"
+		$file1.CreationTime = $file2.CreationTime
+		$metadata_copied = $metadata_copied + 1
         break
       }
     }
   }
 }
+
+Write-Host "Number of files in destination folder: "$destination_files_examined
+$percentage_copied = ($metadata_copied/$destination_files_examined)*100
+Write-Host $percentage_copied"% of the destination folder's files were copied." 
+Write-Host "Total files with updated metadata: "$metadata_copied
 
 # $rv = fc.exe .\MetaDataEditorScriptTestTextFile__V1.txt .\MetaDataEditorScriptTestTextFile__V1.txt
 # Write-Host $rv
