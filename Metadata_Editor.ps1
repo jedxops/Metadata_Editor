@@ -45,10 +45,10 @@
 # copied data as well as a data copy count
 
 # Declare paths
-$files_to_copy_metadata_to    = Get-ChildItem 'd:\photos\vacations\maui 2021\Metadata Editor Edited Folder\Maui 2021 Robocopied'
-$files_to_copy_metadata_from  = Get-ChildItem 'd:\photos\vacations\maui 2021\Metadata Editor Edited Folder\Newly Imported With Correct Metadata'
-$copy_to_path = '.\Maui 2021 Robocopied\'
-$copy_from_path = '.\Newly Imported With Correct Metadata\'
+$files_to_copy_metadata_to    = Get-ChildItem 'drive_name:dest_path_name'
+$files_to_copy_metadata_from  = Get-ChildItem 'drive_name:source_path_name'
+$copy_to_path = '.\end_of_dest_path_name'
+$copy_from_path = '.\end_of_source_path_name'
 
 # Other variables
 $metadata_copied = 0

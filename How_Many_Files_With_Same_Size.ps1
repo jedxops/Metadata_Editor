@@ -6,8 +6,8 @@
 # Windows Powershell (to be run in Windows Powershell ISE)
 
 # Declare paths
-$files_to_copy_metadata_to    = Get-ChildItem 'd:\photos\vacations\maui 2021\Metadata Editor Edited Folder\Maui 2021 Robocopied 2'
-$files_to_copy_metadata_from  = Get-ChildItem 'd:\photos\vacations\maui 2021\Metadata Editor Edited Folder\Newly Imported With Correct Metadata'
+$files_to_copy_metadata_to    = Get-ChildItem 'drive_name:dest_path_name'
+$files_to_copy_metadata_from  = Get-ChildItem 'drive_name:source_path_name'
 
 # Other variables
 $destination_files_examined = 0
